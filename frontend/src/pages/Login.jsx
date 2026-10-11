@@ -1,7 +1,7 @@
-
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Toast from "../components/Toast.jsx";
 
 function Login() {
   const navigate = useNavigate();
@@ -9,6 +9,20 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [toast, setToast] = useState(null);
+
+  const redirectTimer = useRef(null);
+
+  const closeToast = useCallback(() => setToast(null), []);
+
+  // Clear the pending redirect if the user leaves this page
+  useEffect(() => {
+    return () => {
+      if (redirectTimer.current) {
+        clearTimeout(redirectTimer.current);
+      }
+    };
+  }, []);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -16,6 +30,7 @@ function Login() {
     if (isLoading) return;
 
     setIsLoading(true);
+    setToast(null);
 
     try {
       const response = await axios.post(
@@ -36,23 +51,39 @@ function Login() {
       localStorage.setItem("portglowToken", token);
       localStorage.setItem("portglowUser", JSON.stringify(user));
 
-      alert(message || "Login successful!");
-      navigate("/dashboard");
+      setToast({
+        type: "success",
+        title: "Welcome back!",
+        message: message || "Login successful. Taking you to your dashboard...",
+        duration: 1600,
+      });
+
+      // Let the user see the toast, then go to the dashboard.
+      // The button stays disabled until the redirect happens.
+      redirectTimer.current = setTimeout(() => {
+        navigate("/dashboard");
+      }, 1300);
     } catch (error) {
       console.error("Login error:", error);
 
-      alert(
-        error.response?.data?.message ||
+      setToast({
+        type: "error",
+        title: "Login failed",
+        message:
+          error.response?.data?.message ||
           error.message ||
-          "Login failed. Please try again."
-      );
-    } finally {
+          "Login failed. Please try again.",
+        duration: 4000,
+      });
+
       setIsLoading(false);
     }
   };
 
   return (
     <div className="auth-page">
+      <Toast toast={toast} onClose={closeToast} />
+
       <div className="auth-card">
         <div className="auth-logo">
           <span className="logo-icon">✦</span>

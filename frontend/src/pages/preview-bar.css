@@ -1,0 +1,187 @@
+/* =========================================
+   PREVIEW TOOLBAR â€” Preview.jsx ke saath same folder (src/pages/)
+========================================= */
+
+.pv-page {
+  min-height: 100vh;
+  background: #f8f7fc;
+}
+
+.pv-bar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 16px;
+  min-height: 68px;
+  padding: 10px clamp(16px, 4vw, 60px);
+  background: rgba(255, 255, 255, 0.92);
+  border-bottom: 1px solid #ece8f5;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* small "Back to Builder" pill */
+.pv-back {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 36px;
+  padding: 0 16px;
+  border: 1px solid rgba(143, 124, 255, 0.3);
+  border-radius: 999px;
+  background: rgba(143, 124, 255, 0.07);
+  color: #5b45e0;
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 650;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.pv-back:hover {
+  transform: translateX(-2px);
+  background: rgba(143, 124, 255, 0.16);
+  box-shadow:
+    0 0 0 4px rgba(143, 124, 255, 0.1),
+    0 8px 20px rgba(143, 124, 255, 0.25);
+}
+
+.pv-back svg {
+  transition: transform 0.2s ease;
+}
+
+.pv-back:hover svg {
+  transform: translateX(-3px);
+}
+
+/* logo + tagline (stacked) */
+.pv-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pv-brand-icon {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: #8f7cff;
+  color: #ffffff;
+  font-size: 17px;
+}
+
+.pv-brand-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: #17151f;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+  line-height: 1.2;
+}
+
+.pv-brand-tagline {
+  color: #7c3aed;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+/* right side */
+.pv-right {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.pv-select-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #85808c;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.pv-select {
+  height: 36px;
+  padding: 0 34px 0 14px;
+  border: 1px solid rgba(143, 124, 255, 0.3);
+  border-radius: 999px;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%235b45e0' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")
+      no-repeat right 12px center / 12px,
+    #ffffff;
+  color: #3b3550;
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 650;
+  letter-spacing: 0;
+  text-transform: none;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.pv-select:hover,
+.pv-select:focus {
+  outline: none;
+  border-color: #9d8cff;
+  box-shadow: 0 0 0 4px rgba(143, 124, 255, 0.12);
+}
+
+.pv-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #6b6577;
+  font-size: 12px;
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+.pv-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #4ade80;
+  box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7);
+  animation: pv-live 1.8s ease-out infinite;
+}
+
+@keyframes pv-live {
+  0%   { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7); }
+  100% { box-shadow: 0 0 0 8px rgba(74, 222, 128, 0); }
+}
+
+@media (max-width: 900px) {
+  .pv-status,
+  .pv-select-wrap > span {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .pv-bar {
+    grid-template-columns: auto 1fr;
+  }
+
+  .pv-brand {
+    display: none;
+  }
+}

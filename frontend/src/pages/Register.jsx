@@ -1,7 +1,7 @@
-
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Toast from "../components/Toast.jsx";
 
 function Register() {
   const navigate = useNavigate();
@@ -13,6 +13,24 @@ function Register() {
   });
 
   const [isLoading, setIsLoading] = useState(false);
+  const [toast, setToast] = useState(null);
+
+  const redirectTimer = useRef(null);
+
+  const closeToast = useCallback(() => setToast(null), []);
+
+  // Clear the pending redirect if the user leaves this page
+  useEffect(() => {
+    return () => {
+      if (redirectTimer.current) {
+        clearTimeout(redirectTimer.current);
+      }
+    };
+  }, []);
+
+  const showError = (title, message) => {
+    setToast({ type: "error", title, message, duration: 4000 });
+  };
 
   const handleChange = (e) => {
     setFormData((previous) => ({
@@ -30,16 +48,20 @@ function Register() {
     const email = formData.email.trim().toLowerCase();
 
     if (!name || !email || !formData.password) {
-      alert("Please fill in all fields.");
+      showError("Missing details", "Please fill in all fields.");
       return;
     }
 
     if (formData.password.length < 8) {
-      alert("Password must contain at least 8 characters.");
+      showError(
+        "Password too short",
+        "Password must contain at least 8 characters."
+      );
       return;
     }
 
     setIsLoading(true);
+    setToast(null);
 
     try {
       const response = await axios.post(
@@ -63,23 +85,37 @@ function Register() {
       localStorage.setItem("portglowToken", token);
       localStorage.setItem("portglowUser", JSON.stringify(user));
 
-      alert(message || "Account created successfully!");
-      navigate("/dashboard");
+      setToast({
+        type: "success",
+        title: "Account created!",
+        message:
+          message || "Welcome to PortGlow. Taking you to your dashboard...",
+        duration: 1600,
+      });
+
+      // Let the user see the toast, then go to the dashboard.
+      // The button stays disabled until the redirect happens.
+      redirectTimer.current = setTimeout(() => {
+        navigate("/dashboard");
+      }, 1300);
     } catch (error) {
       console.error("Registration error:", error);
 
-      alert(
+      showError(
+        "Registration failed",
         error.response?.data?.message ||
           error.message ||
           "Registration failed. Please try again."
       );
-    } finally {
+
       setIsLoading(false);
     }
   };
 
   return (
     <div className="auth-page">
+      <Toast toast={toast} onClose={closeToast} />
+
       <div className="auth-card">
         <div className="auth-logo">
           <span className="logo-icon">✦</span>

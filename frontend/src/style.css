@@ -3544,3 +3544,727 @@ button {
     padding: 24px 18px;
   }
 }
+
+/* =========================================
+   BUILDER HEADER â€” BUTTON DESIGN & ALIGNMENT
+   Isko style.css ke END me paste karo
+   (purane .builder-save-button / .builder-preview-button ke baad)
+   Order: Home, Save, Preview, Republish, Copy Link, View Live, Unpublish, Logout
+========================================= */
+
+.builder-header {
+  height: 72px;
+  gap: 24px;
+}
+
+.builder-header-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: nowrap;
+  gap: 8px;
+  margin-left: auto;
+}
+
+/* ---------- Base: sabhi buttons same size & shape ---------- */
+.builder-header .builder-header-actions > * {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  height: 38px;
+  padding: 0 15px;
+  border: 1px solid #e3dfec;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #37333f;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease,
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.builder-header .builder-header-actions > *:hover {
+  background: #f5f2ff;
+  border-color: #cfc4ff;
+  color: #5f4bd8;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(95, 75, 216, 0.1);
+}
+
+.builder-header .builder-header-actions > *:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.builder-header .builder-header-actions > *:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(143, 124, 255, 0.35);
+}
+
+/* ---------- 1. Home â€” soft ghost ---------- */
+.builder-header .builder-header-actions > *:nth-child(1) {
+  border-color: transparent;
+  background: transparent;
+  color: #6b6577;
+}
+
+/* ---------- 3. Preview â€” dark primary ---------- */
+.builder-header .builder-header-actions > *:nth-child(3) {
+  background: #17151f;
+  border-color: #17151f;
+  color: #ffffff;
+}
+.builder-header .builder-header-actions > *:nth-child(3):hover {
+  background: #2b2735;
+  border-color: #2b2735;
+  color: #ffffff;
+  box-shadow: 0 8px 20px rgba(23, 21, 31, 0.2);
+}
+
+/* ---------- 5. Copy Link â€” ghost ---------- */
+.builder-header .builder-header-actions > *:nth-child(5) {
+  border-color: transparent;
+  background: #f7f5fb;
+}
+
+/* ---------- 6. View Live â€” purple highlight ---------- */
+.builder-header .builder-header-actions > *:nth-child(6) {
+  background: linear-gradient(135deg, #9a88ff, #7c68ed);
+  border-color: transparent;
+  color: #ffffff;
+  box-shadow: 0 6px 16px rgba(124, 104, 237, 0.3);
+}
+.builder-header .builder-header-actions > *:nth-child(6):hover {
+  background: linear-gradient(135deg, #8a77fb, #6b56e0);
+  border-color: transparent;
+  color: #ffffff;
+  box-shadow: 0 10px 22px rgba(124, 104, 237, 0.4);
+}
+
+/* ---------- 7. Unpublish â€” danger outline ---------- */
+.builder-header .builder-header-actions > *:nth-child(7) {
+  color: #d93636;
+  border-color: #f6caca;
+  background: #fffafa;
+}
+.builder-header .builder-header-actions > *:nth-child(7):hover {
+  background: #fff0f0;
+  border-color: #ef9a9a;
+  color: #b71c1c;
+  box-shadow: 0 6px 16px rgba(217, 54, 54, 0.12);
+}
+
+/* ---------- 8. Logout â€” alag group (divider ke saath) ---------- */
+.builder-header .builder-header-actions > *:nth-child(8) {
+  position: relative;
+  margin-left: 10px;
+  background: #17151f;
+  border-color: #17151f;
+  color: #ffffff;
+}
+.builder-header .builder-header-actions > *:nth-child(8)::before {
+  content: "";
+  position: absolute;
+  left: -11px;
+  top: 8px;
+  bottom: 8px;
+  width: 1px;
+  background: #e3dfec;
+}
+.builder-header .builder-header-actions > *:nth-child(8):hover {
+  background: #d93636;
+  border-color: #d93636;
+  color: #ffffff;
+  box-shadow: 0 8px 20px rgba(217, 54, 54, 0.25);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1200px) {
+  .builder-header .builder-header-actions > * {
+    padding: 0 12px;
+    font-size: 12.5px;
+  }
+}
+
+@media (max-width: 1050px) {
+  .builder-header {
+    height: auto;
+    min-height: 72px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    flex-wrap: wrap;
+  }
+  .builder-header-actions {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    width: 100%;
+    margin-left: 0;
+  }
+  .builder-header .builder-header-actions > *:nth-child(8)::before {
+    display: none;
+  }
+  .builder-header .builder-header-actions > *:nth-child(8) {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 500px) {
+  /* purane rule ne Save hide kiya tha â€” ab sab dikhao */
+  .builder-save-button {
+    display: inline-flex;
+  }
+  .builder-header .builder-header-actions > * {
+    height: 36px;
+    padding: 0 11px;
+    font-size: 12px;
+  }
+}
+/* =========================================
+   BUILDER HEADER â€” GLOW BUTTONS + SPLIT LAYOUT
+   style.css ke END me paste karo
+   (pehle wala builder-header.css block hata do, ye usse replace karta hai)
+
+   Original order: 1 Home, 2 Save, 3 Preview, 4 Republish,
+                   5 Copy Link, 6 View Live, 7 Unpublish, 8 Logout
+
+   LEFT  (logo ke paas): Save, Preview, View Live, Unpublish, Logout
+   RIGHT (far right)   : Home, Republish, Copy Link
+========================================= */
+
+.builder-header {
+  height: 76px;
+  gap: 20px;
+  background:
+    linear-gradient(180deg, #ffffff 0%, #fbfaff 100%);
+  border-bottom: 1px solid #ebe6fa;
+  box-shadow: 0 8px 30px rgba(124, 104, 237, 0.06);
+}
+
+.builder-header-actions {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 10px;
+  margin-left: 28px;
+}
+
+/* ---------- Base glow button ---------- */
+.builder-header .builder-header-actions > * {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  height: 40px;
+  padding: 0 16px;
+  border: 1px solid #e4defa;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #3b3552;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow:
+    0 1px 2px rgba(60, 40, 120, 0.05),
+    0 0 0 0 rgba(143, 124, 255, 0);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.25s ease,
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.builder-header .builder-header-actions > *:hover {
+  transform: translateY(-2px);
+  border-color: #b9a8ff;
+  color: #5b45e0;
+  background: #faf8ff;
+  box-shadow:
+    0 8px 22px rgba(143, 124, 255, 0.28),
+    0 0 18px rgba(143, 124, 255, 0.35);
+}
+
+.builder-header .builder-header-actions > *:active {
+  transform: translateY(0);
+}
+
+.builder-header .builder-header-actions > *:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(143, 124, 255, 0.45);
+}
+
+/* =========================================
+   LEFT GROUP (order 1â€“5)
+========================================= */
+
+/* Save â€” soft glass */
+.builder-header .builder-header-actions > *:nth-child(2) {
+  order: 1;
+}
+
+/* Preview â€” dark with purple glow */
+.builder-header .builder-header-actions > *:nth-child(3) {
+  order: 2;
+  background: linear-gradient(135deg, #1c1a26, #2f2b45);
+  border-color: #2f2b45;
+  color: #ffffff;
+  box-shadow: 0 6px 18px rgba(47, 43, 69, 0.3);
+}
+.builder-header .builder-header-actions > *:nth-child(3):hover {
+  background: linear-gradient(135deg, #25223a, #3d3763);
+  border-color: #6f5cf0;
+  color: #ffffff;
+  box-shadow:
+    0 8px 24px rgba(111, 92, 240, 0.45),
+    0 0 22px rgba(143, 124, 255, 0.55);
+}
+
+/* View Live â€” glowing purple gradient + pulse */
+.builder-header .builder-header-actions > *:nth-child(6) {
+  order: 3;
+  background: linear-gradient(135deg, #a897ff 0%, #7c5cff 55%, #6a4af0 100%);
+  border-color: transparent;
+  color: #ffffff;
+  box-shadow:
+    0 6px 18px rgba(124, 92, 255, 0.4),
+    0 0 20px rgba(143, 124, 255, 0.45);
+  animation: pg-glow-pulse 2.6s ease-in-out infinite;
+}
+.builder-header .builder-header-actions > *:nth-child(6):hover {
+  background: linear-gradient(135deg, #b4a5ff 0%, #8b6bff 55%, #7656ff 100%);
+  border-color: transparent;
+  color: #ffffff;
+  box-shadow:
+    0 10px 28px rgba(124, 92, 255, 0.6),
+    0 0 34px rgba(160, 140, 255, 0.75);
+  animation: none;
+}
+
+/* Unpublish â€” red neon outline */
+.builder-header .builder-header-actions > *:nth-child(7) {
+  order: 4;
+  background: #fff8f8;
+  border-color: #f4b8b8;
+  color: #d32f2f;
+}
+.builder-header .builder-header-actions > *:nth-child(7):hover {
+  background: #fff0f0;
+  border-color: #ef6b6b;
+  color: #b71c1c;
+  box-shadow:
+    0 8px 22px rgba(239, 83, 80, 0.28),
+    0 0 18px rgba(239, 83, 80, 0.4);
+}
+
+/* Logout â€” dark, red glow on hover */
+.builder-header .builder-header-actions > *:nth-child(8) {
+  order: 5;
+  background: #17151f;
+  border-color: #17151f;
+  color: #ffffff;
+}
+.builder-header .builder-header-actions > *:nth-child(8):hover {
+  background: #d32f2f;
+  border-color: #d32f2f;
+  color: #ffffff;
+  box-shadow:
+    0 8px 22px rgba(211, 47, 47, 0.4),
+    0 0 22px rgba(239, 83, 80, 0.55);
+}
+
+/* =========================================
+   RIGHT GROUP (order 10â€“12)
+========================================= */
+
+/* Home â€” pehla right item: yahin se auto margin laga ke right me push */
+.builder-header .builder-header-actions > *:nth-child(1) {
+  order: 10;
+  margin-left: auto;
+  background: transparent;
+  border-color: transparent;
+  color: #6b6385;
+  box-shadow: none;
+}
+.builder-header .builder-header-actions > *:nth-child(1):hover {
+  background: #f3efff;
+  border-color: #d7ccff;
+  color: #5b45e0;
+}
+
+/* Republish â€” purple outline glow */
+.builder-header .builder-header-actions > *:nth-child(4) {
+  order: 11;
+  background: #f6f3ff;
+  border-color: #c9bcff;
+  color: #5b45e0;
+  box-shadow: 0 0 14px rgba(143, 124, 255, 0.22);
+}
+.builder-header .builder-header-actions > *:nth-child(4):hover {
+  background: #ede8ff;
+  border-color: #9c88ff;
+}
+
+/* Copy Link â€” glass effect with glow */
+.builder-header .builder-header-actions > *:nth-child(5) {
+  order: 12;
+  background: linear-gradient(135deg, #ffffff, #f3efff);
+  border-color: #dcd2ff;
+  color: #4a3fb5;
+  box-shadow: 0 0 14px rgba(143, 124, 255, 0.18);
+}
+
+/* ---------- Glow pulse animation ---------- */
+@keyframes pg-glow-pulse {
+  0%, 100% {
+    box-shadow:
+      0 6px 18px rgba(124, 92, 255, 0.4),
+      0 0 18px rgba(143, 124, 255, 0.35);
+  }
+  50% {
+    box-shadow:
+      0 8px 24px rgba(124, 92, 255, 0.55),
+      0 0 30px rgba(160, 140, 255, 0.65);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .builder-header .builder-header-actions > * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 1250px) {
+  .builder-header .builder-header-actions > * {
+    height: 38px;
+    padding: 0 12px;
+    font-size: 12.5px;
+  }
+  .builder-header-actions {
+    gap: 8px;
+    margin-left: 16px;
+  }
+}
+
+@media (max-width: 1050px) {
+  .builder-header {
+    height: auto;
+    min-height: 76px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    flex-wrap: wrap;
+  }
+  .builder-header-actions {
+    flex-wrap: wrap;
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 500px) {
+  .builder-save-button {
+    display: inline-flex;
+  }
+  .builder-header .builder-header-actions > * {
+    height: 36px;
+    padding: 0 11px;
+    font-size: 12px;
+  }
+}/* =========================================
+   BUILDER HEADER â€” GLOWING BUTTONS (v3)
+   Pehle wala builder-header block hata ke ye paste karo
+   (style.css ke END me)
+
+   DOM order: Home, Save, Preview, Republish, Copy Link, View Live, Unpublish, Logout
+
+   LEFT  : Home, View Live, Copy Link, Republish
+   RIGHT : Preview, Save, Unpublish, Logout
+
+   Design mapping (left = right, same look):
+   Home       <-> Logout      : ghost
+   View Live  <-> Preview     : glowing gradient
+   Copy Link  <-> Save        : lavender tint
+   Republish  <-> Unpublish   : glass outline
+========================================= */
+
+.builder-header {
+  height: 76px;
+  gap: 28px;
+}
+
+.builder-header-actions {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 10px;
+  min-width: 0;
+}
+
+/* ---------- ORDER ---------- */
+.builder-header .builder-header-actions > *:nth-child(1) { order: 1; } /* Home */
+.builder-header .builder-header-actions > *:nth-child(6) { order: 2; } /* View Live */
+.builder-header .builder-header-actions > *:nth-child(5) { order: 3; } /* Copy Link */
+.builder-header .builder-header-actions > *:nth-child(4) { order: 4; } /* Republish */
+
+.builder-header .builder-header-actions > *:nth-child(3) {              /* Preview */
+  order: 5;
+  margin-left: auto;               /* right group yahin se shuru */
+}
+.builder-header .builder-header-actions > *:nth-child(2) { order: 6; } /* Save */
+.builder-header .builder-header-actions > *:nth-child(7) { order: 7; } /* Unpublish */
+.builder-header .builder-header-actions > *:nth-child(8) { order: 8; } /* Logout */
+
+/* ---------- BASE ---------- */
+.builder-header .builder-header-actions > * {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  height: 40px;
+  padding: 0 18px;
+  border: 1px solid #e4defa;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #3b3550;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 650;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  overflow: hidden;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease;
+}
+
+.builder-header .builder-header-actions > *:hover {
+  transform: translateY(-2px);
+  border-color: #b9a8ff;
+  color: #5b45e0;
+  background: #faf8ff;
+  box-shadow:
+    0 0 0 3px rgba(143, 124, 255, 0.12),
+    0 8px 22px rgba(143, 124, 255, 0.35);
+}
+
+.builder-header .builder-header-actions > *:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.builder-header .builder-header-actions > *:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(143, 124, 255, 0.5);
+}
+
+/* ---------- GHOST: Home, Logout ---------- */
+.builder-header .builder-header-actions > *:nth-child(1),
+.builder-header .builder-header-actions > *:nth-child(8) {
+  background: transparent;
+  border-color: transparent;
+  color: #6b6577;
+}
+
+/* ---------- LAVENDER: Copy Link, Save ---------- */
+.builder-header .builder-header-actions > *:nth-child(5),
+.builder-header .builder-header-actions > *:nth-child(2) {
+  background: linear-gradient(135deg, #f6f3ff, #efeaff);
+  border-color: #e2d9ff;
+  color: #6a55e6;
+}
+
+/* ---------- GLASS OUTLINE: Republish, Unpublish ---------- */
+.builder-header .builder-header-actions > *:nth-child(4),
+.builder-header .builder-header-actions > *:nth-child(7) {
+  background: #ffffff;
+  border-color: #d5cbff;
+  color: #5b45e0;
+}
+
+/* Unpublish: same glass design, red accent (destructive) */
+.builder-header .builder-header-actions > *:nth-child(7) {
+  border-color: #f5c2c2;
+  color: #e363e5;
+  background: #fff8f8;
+}
+.builder-header .builder-header-actions > *:nth-child(7):hover {
+  background: #fff0f0;
+  border-color: #ef8a8a;
+  color: #c62828;
+  box-shadow:
+    0 0 0 3px rgba(239, 83, 80, 0.12),
+    0 8px 22px rgba(239, 83, 80, 0.35);
+}
+
+/* ---------- GLOWING GRADIENT: View Live, Preview ---------- */
+.builder-header .builder-header-actions > *:nth-child(6),
+.builder-header .builder-header-actions > *:nth-child(3) {
+  border-color: transparent;
+  color: #ffffff;
+  background: linear-gradient(120deg, #8f7cff 0%, #b06cff 50%, #ff7ac8 100%);
+  background-size: 200% 200%;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.25) inset,
+    0 6px 20px rgba(143, 124, 255, 0.5);
+  animation:
+    pg-glow-pulse 2.6s ease-in-out infinite,
+    pg-gradient-shift 5s ease infinite;
+}
+
+.builder-header .builder-header-actions > *:nth-child(6)::after,
+.builder-header .builder-header-actions > *:nth-child(3)::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -70%;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(
+    100deg,
+    transparent,
+    rgba(255, 255, 255, 0.55),
+    transparent
+  );
+  transform: skewX(-20deg);
+  animation: pg-shine 3.4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.builder-header .builder-header-actions > *:nth-child(6):hover,
+.builder-header .builder-header-actions > *:nth-child(3):hover {
+  color: #ffffff;
+  border-color: transparent;
+  background: linear-gradient(120deg, #8f7cff 0%, #b06cff 50%, #ff7ac8 100%);
+  background-size: 200% 200%;
+  transform: translateY(-2px) scale(1.03);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.3) inset,
+    0 10px 32px rgba(176, 108, 255, 0.7);
+}
+
+/* ---------- Logout: divider + red hover ---------- */
+.builder-header .builder-header-actions > *:nth-child(8) {
+  margin-left: 8px;
+}
+.builder-header .builder-header-actions > *:nth-child(8)::before {
+  content: "";
+  position: absolute;
+  left: -9px;
+  top: 9px;
+  bottom: 9px;
+  width: 1px;
+  background: #e4defa;
+}
+.builder-header .builder-header-actions > *:nth-child(8):hover {
+  background: #fff0f0;
+  border-color: #ef8a8a;
+  color: #c62828;
+  box-shadow:
+    0 0 0 3px rgba(239, 83, 80, 0.12),
+    0 8px 22px rgba(239, 83, 80, 0.35);
+}
+
+/* ---------- ANIMATIONS ---------- */
+@keyframes pg-glow-pulse {
+  0%, 100% {
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.25) inset,
+      0 6px 20px rgba(143, 124, 255, 0.45);
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.3) inset,
+      0 8px 30px rgba(176, 108, 255, 0.75);
+  }
+}
+
+@keyframes pg-gradient-shift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes pg-shine {
+  0%, 55% { left: -70%; }
+  100%    { left: 130%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .builder-header .builder-header-actions > *:nth-child(6),
+  .builder-header .builder-header-actions > *:nth-child(3),
+  .builder-header .builder-header-actions > *:nth-child(6)::after,
+  .builder-header .builder-header-actions > *:nth-child(3)::after {
+    animation: none;
+  }
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 1250px) {
+  .builder-header .builder-header-actions > * {
+    padding: 0 13px;
+    font-size: 12.5px;
+  }
+  .builder-header-actions {
+    gap: 8px;
+  }
+}
+
+@media (max-width: 1050px) {
+  .builder-header {
+    height: auto;
+    min-height: 76px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    flex-wrap: wrap;
+  }
+  .builder-header-actions {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+  .builder-header .builder-header-actions > *:nth-child(3) {
+    margin-left: 0;
+  }
+  .builder-header .builder-header-actions > *:nth-child(8) {
+    margin-left: 0;
+  }
+  .builder-header .builder-header-actions > *:nth-child(8)::before {
+    display: none;
+  }
+}
+
+@media (max-width: 500px) {
+  .builder-save-button {
+    display: inline-flex;
+  }
+  .builder-header .builder-header-actions > * {
+    height: 36px;
+    padding: 0 11px;
+    font-size: 12px;
+  }
+}

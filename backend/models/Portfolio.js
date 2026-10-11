@@ -1,4 +1,3 @@
-
 const mongoose = require("mongoose");
 
 const projectSchema = new mongoose.Schema(
@@ -98,9 +97,13 @@ const portfolioSchema = new mongoose.Schema(
       default: [],
     },
 
+    // Template id: aurora | minimal-dev | dark-pro | noir-luxe |
+    // neon-studio | executive-pro | glass-elite | cinematic
+    // (unknown / old ids fall back to "aurora" in the frontend)
     template: {
       type: String,
-      default: "soft-editorial",
+      trim: true,
+      default: "aurora",
     },
 
     slug: {

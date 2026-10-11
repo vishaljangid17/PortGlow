@@ -1,0 +1,654 @@
+/* =========================================
+   PORTGLOW â€” BUILDER HEADER (class based, v5)
+   Is file ko Builder.jsx ke SAATH SAME FOLDER me rakho.
+   Builder.jsx me import already hai:  import "./builder-header.css";
+   style.css me kuch change nahi karna.
+========================================= */
+
+.builder-header {
+  height: 76px;
+  gap: 24px;
+  justify-content: flex-start;
+}
+
+/* container: left group | right group */
+.pg-actions {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.pg-actions-left,
+.pg-actions-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ---------- BASE PILL ---------- */
+.pg-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 38px;
+  padding: 0 18px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: rgba(143, 124, 255, 0.07);
+  color: #4a4360;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 650;
+  letter-spacing: 0.1px;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  overflow: hidden;
+  transition:
+    transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1),
+    background 0.22s ease,
+    color 0.22s ease,
+    box-shadow 0.25s ease,
+    border-color 0.22s ease;
+}
+
+.pg-btn:hover {
+  transform: translateY(-2px);
+  background: rgba(143, 124, 255, 0.16);
+  border-color: rgba(143, 124, 255, 0.35);
+  color: #5b45e0;
+  box-shadow:
+    0 0 0 4px rgba(143, 124, 255, 0.1),
+    0 8px 22px rgba(143, 124, 255, 0.28);
+}
+
+.pg-btn:active {
+  transform: translateY(0) scale(0.97);
+}
+
+.pg-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(143, 124, 255, 0.5);
+}
+
+.pg-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ---------- HOME : ghost ---------- */
+.pg-btn-ghost {
+  background: transparent;
+  color: #6b6577;
+  padding: 0 14px;
+}
+
+/* ---------- COPY LINK : soft lavender ---------- */
+.pg-btn-soft {
+  background: linear-gradient(135deg, #f6f3ff, #ece6ff);
+  border-color: rgba(143, 124, 255, 0.25);
+  color: #5b45e0;
+}
+
+/* ---------- REPUBLISH / PUBLISH : glass ---------- */
+.pg-btn-glass {
+  background: rgba(255, 255, 255, 0.75);
+  border-color: rgba(143, 124, 255, 0.3);
+  color: #5b45e0;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 1px 2px rgba(60, 40, 120, 0.06);
+}
+
+/* ---------- VIEW LIVE + PREVIEW : glowing gradient ---------- */
+.pg-btn-live,
+.pg-btn-primary {
+  color: #ffffff;
+  border-color: transparent;
+  background: linear-gradient(120deg, #7f6bff 0%, #a56bff 50%, #ff7ac8 100%);
+  background-size: 200% 200%;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.28) inset,
+    0 6px 20px rgba(143, 124, 255, 0.5);
+  animation:
+    pg-glow-pulse 2.6s ease-in-out infinite,
+    pg-gradient-shift 5s ease infinite;
+}
+
+.pg-btn-live:hover,
+.pg-btn-primary:hover {
+  color: #ffffff;
+  border-color: transparent;
+  background: linear-gradient(120deg, #7f6bff 0%, #a56bff 50%, #ff7ac8 100%);
+  background-size: 200% 200%;
+  transform: translateY(-2px) scale(1.04);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.3) inset,
+    0 10px 32px rgba(176, 108, 255, 0.7);
+}
+
+/* shine sweep */
+.pg-btn-live::after,
+.pg-btn-primary::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -70%;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  transform: skewX(-20deg);
+  animation: pg-shine 3.4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* live dot */
+.pg-btn-live::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #4ade80;
+  box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7);
+  animation: pg-live-dot 1.8s ease-out infinite;
+}
+
+/* =========================================
+   BURGER MENU
+========================================= */
+
+.pg-menu {
+  position: relative;
+}
+
+.pg-burger {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid rgba(143, 124, 255, 0.28);
+  border-radius: 50%;
+  background:
+    linear-gradient(#5b45e0, #5b45e0) center 13px / 16px 2px no-repeat,
+    linear-gradient(#5b45e0, #5b45e0) center 19px / 16px 2px no-repeat,
+    linear-gradient(#5b45e0, #5b45e0) center 25px / 16px 2px no-repeat,
+    rgba(255, 255, 255, 0.85);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.25s ease, border-color 0.2s ease;
+}
+
+.pg-burger:hover,
+.pg-burger[aria-expanded="true"] {
+  border-color: #9d8cff;
+  box-shadow:
+    0 0 0 4px rgba(143, 124, 255, 0.12),
+    0 8px 22px rgba(143, 124, 255, 0.35);
+}
+
+.pg-burger:hover {
+  transform: translateY(-2px);
+}
+
+.pg-burger:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(143, 124, 255, 0.5);
+}
+
+.pg-dropdown {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  z-index: 60;
+  width: 210px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  border: 1px solid rgba(143, 124, 255, 0.22);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(18px);
+  box-shadow:
+    0 20px 50px rgba(60, 40, 130, 0.18),
+    0 0 0 4px rgba(143, 124, 255, 0.06);
+  transform-origin: top right;
+  animation: pg-menu-in 0.18s ease-out;
+}
+
+.pg-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  height: 42px;
+  padding: 0 14px;
+  border: none;
+  border-radius: 11px;
+  background: transparent;
+  color: #3b3550;
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, padding-left 0.15s ease;
+}
+
+.pg-menu-item:hover {
+  background: #f3f0ff;
+  color: #5b45e0;
+  padding-left: 18px;
+}
+
+.pg-menu-item:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.pg-menu-item--danger {
+  color: #d93636;
+}
+.pg-menu-item--danger:hover {
+  background: #fff0f0;
+  color: #c62828;
+}
+
+.pg-menu-item--logout {
+  margin-top: 6px;
+  border-top: 1px solid #eee8ff;
+  border-radius: 0 0 11px 11px;
+  color: #6b6577;
+}
+.pg-menu-item--logout:hover {
+  background: #fff0f0;
+  color: #c62828;
+}
+
+/* ---------- ANIMATIONS ---------- */
+@keyframes pg-glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.28) inset, 0 6px 20px rgba(143, 124, 255, 0.45);
+  }
+  50% {
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3) inset, 0 8px 30px rgba(176, 108, 255, 0.75);
+  }
+}
+@keyframes pg-gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+@keyframes pg-shine {
+  0%, 55% { left: -70%; }
+  100%    { left: 130%; }
+}
+@keyframes pg-live-dot {
+  0%   { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7); }
+  100% { box-shadow: 0 0 0 8px rgba(74, 222, 128, 0); }
+}
+@keyframes pg-menu-in {
+  from { opacity: 0; transform: translateY(-6px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pg-btn,
+  .pg-btn::before,
+  .pg-btn::after,
+  .pg-dropdown {
+    animation: none !important;
+  }
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 1000px) {
+  .pg-btn {
+    padding: 0 13px;
+    font-size: 12.5px;
+  }
+}
+
+@media (max-width: 720px) {
+  .builder-header {
+    height: auto;
+    min-height: 76px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    flex-wrap: wrap;
+  }
+  .pg-actions {
+    width: 100%;
+    flex: 1 1 100%;
+    flex-wrap: wrap;
+  }
+  .pg-actions-left {
+    flex-wrap: wrap;
+  }
+}
+
+/* =========================================
+   LOGO TAGLINE â€” "We Make Your Skills Glow."
+   Home page jaisa: logo ke neeche wali line,
+   har jagah jahan PortGlow logo hai
+   (Builder, Dashboard, Login/Register, Footer, Preview).
+   Home navbar me ye line pehle se hai, usko touch nahi kiya.
+========================================= */
+
+.builder-logo,
+.dashboard-logo,
+.auth-logo,
+.footer-logo,
+.preview-toolbar-brand,
+.premium-preview .preview-toolbar-brand {
+  display: inline-grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+  column-gap: 10px;
+  row-gap: 0;
+  align-items: center;
+  justify-items: start;
+  line-height: 1.2;
+}
+
+/* icon: left, dono rows me */
+.builder-logo > :first-child,
+.dashboard-logo > :first-child,
+.auth-logo > :first-child,
+.footer-logo > :first-child,
+.preview-toolbar-brand > :first-child {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  align-self: center;
+}
+
+/* PortGlow naam: upar */
+.builder-logo > :nth-child(2),
+.dashboard-logo > :nth-child(2),
+.footer-logo > :nth-child(2),
+.preview-toolbar-brand > :nth-child(2) {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: end;
+}
+
+/* tagline: naam ke neeche */
+.builder-logo::after,
+.dashboard-logo::after,
+.auth-logo::after,
+.footer-logo::after,
+.preview-toolbar-brand::after {
+  content: "We Make Your Skills Glow.";
+  grid-column: 2;
+  grid-row: 2;
+  align-self: start;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #7c3aed;
+  white-space: nowrap;
+}
+
+/* auth card me logo center */
+.auth-logo {
+  display: grid;
+  justify-content: center;
+}
+
+/* dark footer par halka purple */
+.footer-logo::after {
+  color: #c4b5fd;
+}
+
+/* mobile par tagline thodi chhoti */
+@media (max-width: 600px) {
+  .builder-logo::after,
+  .dashboard-logo::after,
+  .footer-logo::after {
+    font-size: 10px;
+  }
+}
+
+/* =========================================
+   PREVIEW PAGE TOOLBAR
+   - "Back to Builder" ko chhota pill button banao
+   - Logo + tagline ko sahi se stack karo
+========================================= */
+
+.premium-preview .preview-toolbar > :first-child,
+.premium-preview .preview-toolbar .preview-back-link {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 7px !important;
+  justify-self: start !important;
+  align-self: center !important;
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: max-content !important;
+  height: 36px !important;
+  min-height: 0 !important;
+  padding: 0 16px !important;
+  border: 1px solid rgba(143, 124, 255, 0.3) !important;
+  border-radius: 999px !important;
+  background: rgba(143, 124, 255, 0.07) !important;
+  color: #5b45e0 !important;
+  font-family: inherit;
+  font-size: 12.5px !important;
+  font-weight: 650 !important;
+  line-height: 1 !important;
+  text-decoration: none !important;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.premium-preview .preview-toolbar > :first-child:hover,
+.premium-preview .preview-toolbar .preview-back-link:hover {
+  transform: translateX(-2px) !important;
+  background: rgba(143, 124, 255, 0.16) !important;
+  box-shadow:
+    0 0 0 4px rgba(143, 124, 255, 0.1),
+    0 8px 20px rgba(143, 124, 255, 0.25);
+}
+
+.premium-preview .preview-toolbar > :first-child svg,
+.premium-preview .preview-toolbar .preview-back-link svg {
+  width: 15px;
+  height: 15px;
+}
+
+/* logo: icon left, naam upar, tagline neeche */
+.premium-preview .preview-toolbar .preview-toolbar-brand {
+  display: inline-grid !important;
+  grid-template-columns: auto auto !important;
+  grid-template-rows: auto auto !important;
+  column-gap: 10px !important;
+  row-gap: 0 !important;
+  align-items: center !important;
+  justify-items: start !important;
+  justify-self: center !important;
+  line-height: 1.2 !important;
+}
+
+.premium-preview .preview-toolbar .preview-toolbar-brand > :first-child {
+  grid-column: 1 !important;
+  grid-row: 1 / span 2 !important;
+  align-self: center !important;
+}
+
+.premium-preview .preview-toolbar .preview-toolbar-brand > :not(:first-child) {
+  grid-column: 2 !important;
+  grid-row: 1 !important;
+  align-self: end !important;
+}
+
+.premium-preview .preview-toolbar .preview-toolbar-brand::after {
+  grid-column: 2 !important;
+  grid-row: 2 !important;
+  align-self: start !important;
+}
+
+/* =========================================
+   LOGO TAGLINE â€” FORCE FIX
+   Purane rules (display:flex) is stack ko tod rahe the,
+   isliye yahan !important se sab logos me tagline
+   naam ke NEECHE fix ki hai (Home page jaisi).
+========================================= */
+
+.builder-logo,
+.dashboard-logo,
+.auth-logo,
+.footer-logo,
+.preview-toolbar-brand {
+  display: inline-grid !important;
+  grid-template-columns: auto auto !important;
+  grid-template-rows: auto auto !important;
+  column-gap: 10px !important;
+  row-gap: 0 !important;
+  align-items: center !important;
+  justify-items: start !important;
+  line-height: 1.2 !important;
+}
+
+.auth-logo {
+  justify-content: center !important;
+}
+
+.builder-logo > :first-child,
+.dashboard-logo > :first-child,
+.auth-logo > :first-child,
+.footer-logo > :first-child,
+.preview-toolbar-brand > :first-child {
+  grid-column: 1 !important;
+  grid-row: 1 / span 2 !important;
+  align-self: center !important;
+}
+
+.builder-logo > :not(:first-child),
+.dashboard-logo > :not(:first-child),
+.auth-logo > :not(:first-child),
+.footer-logo > :not(:first-child),
+.preview-toolbar-brand > :not(:first-child) {
+  grid-column: 2 !important;
+  grid-row: 1 !important;
+  align-self: end !important;
+}
+
+.builder-logo::after,
+.dashboard-logo::after,
+.auth-logo::after,
+.footer-logo::after,
+.preview-toolbar-brand::after {
+  grid-column: 2 !important;
+  grid-row: 2 !important;
+  align-self: start !important;
+  justify-self: start !important;
+  margin-top: 1px;
+  white-space: nowrap;
+}
+
+/* =========================================
+   DASHBOARD â€” header buttons, glowing CTA, card buttons
+========================================= */
+
+.dashboard-page .dashboard-header {
+  justify-content: flex-start;
+  gap: 24px;
+}
+
+.dash-header-actions {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.dash-actions-left {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Logout pill â€” same family, red accent */
+.pg-btn-logout {
+  background: #ffffff;
+  border-color: rgba(239, 68, 68, 0.28);
+  color: #d93636;
+}
+
+.pg-btn-logout:hover {
+  background: #fff0f0;
+  border-color: #ef8a8a;
+  color: #c62828;
+  box-shadow:
+    0 0 0 4px rgba(239, 68, 68, 0.1),
+    0 8px 22px rgba(239, 68, 68, 0.28);
+}
+
+/* "Create / Continue" CTA â€” glowing gradient pill */
+.dashboard-page .create-portfolio-button {
+  height: 46px;
+  padding: 0 24px;
+  border: none;
+  border-radius: 999px;
+  color: #ffffff;
+  background: linear-gradient(120deg, #7f6bff 0%, #a56bff 50%, #ff7ac8 100%);
+  background-size: 200% 200%;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.28) inset,
+    0 8px 24px rgba(143, 124, 255, 0.5);
+  animation:
+    pg-glow-pulse 2.6s ease-in-out infinite,
+    pg-gradient-shift 5s ease infinite;
+}
+
+.dashboard-page .create-portfolio-button:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.3) inset,
+    0 12px 34px rgba(176, 108, 255, 0.7);
+}
+
+/* Quick action cards: button at the bottom */
+.dashboard-page .quick-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.dashboard-page .quick-card p {
+  flex: 1;
+}
+
+.dashboard-page .quick-card .pg-btn {
+  margin-top: 20px;
+  height: 36px;
+  padding: 0 16px;
+  font-size: 12.5px;
+}
+
+@media (max-width: 800px) {
+  .dashboard-page .dashboard-header {
+    height: auto;
+    min-height: 76px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    flex-wrap: wrap;
+  }
+
+  .dash-header-actions {
+    width: 100%;
+    flex: 1 1 100%;
+    flex-wrap: wrap;
+  }
+}

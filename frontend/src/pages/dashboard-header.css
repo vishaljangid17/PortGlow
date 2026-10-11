@@ -1,0 +1,160 @@
+/* =========================================
+   DASHBOARD HEADER â€” Home (left) + Logout (right)
+   Dashboard.jsx ke SAATH SAME FOLDER me rakho (src/pages/)
+   Ye file akeli kaafi hai, kisi aur CSS pe depend nahi karti.
+========================================= */
+
+.dashboard-page .dashboard-header {
+  justify-content: space-between !important;
+  gap: 24px;
+}
+
+.dash-header-left {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  min-width: 0;
+}
+
+/* ---------- BASE PILL ---------- */
+.dash-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 20px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 650;
+  letter-spacing: 0.1px;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  overflow: hidden;
+  transition:
+    transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1),
+    background 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.dash-btn svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
+}
+
+.dash-btn:active {
+  transform: translateY(0) scale(0.97) !important;
+}
+
+.dash-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(143, 124, 255, 0.5);
+}
+
+/* ---------- HOME: glowing gradient + shine ---------- */
+.dash-btn-home {
+  color: #ffffff;
+  background: linear-gradient(120deg, #7f6bff 0%, #a56bff 50%, #ff7ac8 100%);
+  background-size: 200% 200%;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.28) inset,
+    0 6px 20px rgba(143, 124, 255, 0.5);
+  animation:
+    dash-glow 2.6s ease-in-out infinite,
+    dash-gradient 5s ease infinite;
+}
+
+.dash-btn-home::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -70%;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  transform: skewX(-20deg);
+  animation: dash-shine 3.4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.dash-btn-home:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.3) inset,
+    0 10px 32px rgba(176, 108, 255, 0.7);
+}
+
+.dash-btn-home:hover svg {
+  transform: scale(1.18) rotate(-8deg);
+}
+
+/* ---------- LOGOUT: glass, red fill on hover ---------- */
+.dash-btn-logout {
+  color: #d93636;
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(239, 68, 68, 0.3);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 1px 2px rgba(120, 40, 40, 0.06);
+}
+
+.dash-btn-logout:hover {
+  transform: translateY(-2px);
+  color: #ffffff;
+  background: linear-gradient(135deg, #fb7185, #ef4444);
+  border-color: transparent;
+  box-shadow:
+    0 0 0 4px rgba(239, 68, 68, 0.12),
+    0 10px 26px rgba(239, 68, 68, 0.45);
+}
+
+.dash-btn-logout:hover svg {
+  transform: translateX(4px);
+}
+
+/* ---------- ANIMATIONS ---------- */
+@keyframes dash-glow {
+  0%, 100% {
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.28) inset, 0 6px 20px rgba(143, 124, 255, 0.45);
+  }
+  50% {
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3) inset, 0 8px 30px rgba(176, 108, 255, 0.75);
+  }
+}
+
+@keyframes dash-gradient {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+
+@keyframes dash-shine {
+  0%, 55% { left: -70%; }
+  100%    { left: 130%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dash-btn-home,
+  .dash-btn-home::after {
+    animation: none;
+  }
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 600px) {
+  .dash-header-left {
+    gap: 12px;
+  }
+
+  .dash-btn {
+    height: 36px;
+    padding: 0 14px;
+    font-size: 12.5px;
+  }
+}

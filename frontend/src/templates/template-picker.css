@@ -1,0 +1,149 @@
+/* =========================================
+   BUILDER â€” TEMPLATE PICKER
+   src/templates/ me rakho (Builder.jsx ise import karta hai)
+========================================= */
+
+.template-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.template-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  border: 1.5px solid #e7e3ed;
+  border-radius: 16px;
+  background: #ffffff;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  overflow: hidden;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.25s ease,
+    border-color 0.2s ease;
+}
+
+.template-card:hover {
+  transform: translateY(-4px);
+  border-color: #cfc3ff;
+  box-shadow: 0 16px 40px rgba(60, 40, 130, 0.14);
+}
+
+.template-card.selected {
+  border-color: #8f7cff;
+  box-shadow:
+    0 0 0 4px rgba(143, 124, 255, 0.18),
+    0 16px 40px rgba(143, 124, 255, 0.25);
+}
+
+.template-card.locked {
+  opacity: 0.75;
+}
+
+/* mini preview */
+.template-thumb {
+  position: relative;
+  height: 150px;
+  padding: 14px;
+  overflow: hidden;
+}
+
+.tt-nav {
+  display: block;
+  width: 46px;
+  height: 5px;
+  border-radius: 3px;
+  opacity: 0.9;
+}
+
+.tt-title {
+  display: block;
+  width: 62%;
+  height: 12px;
+  margin-top: 24px;
+  border-radius: 4px;
+}
+
+.tt-title.short {
+  width: 40%;
+  margin-top: 7px;
+}
+
+.tt-line {
+  display: block;
+  width: 70%;
+  height: 4px;
+  margin-top: 12px;
+  border-radius: 3px;
+  opacity: 0.45;
+}
+
+.tt-line.s {
+  width: 54%;
+  margin-top: 6px;
+}
+
+.tt-btn {
+  display: block;
+  width: 56px;
+  height: 16px;
+  margin-top: 14px;
+  border-radius: 99px;
+}
+
+.tt-orb {
+  position: absolute;
+  top: 36px;
+  right: 16px;
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  opacity: 0.9;
+}
+
+.template-info {
+  padding: 14px 16px 16px;
+}
+
+.template-info h3 {
+  margin: 0 0 4px;
+  color: #17151f;
+  font-size: 15px;
+}
+
+.template-info p {
+  margin: 0;
+  color: #85808c;
+  font-size: 12.5px;
+}
+
+.template-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border-radius: 99px;
+  background: #8f7cff;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  box-shadow: 0 6px 16px rgba(143, 124, 255, 0.45);
+}
+
+.template-badge.premium {
+  background: #17151f;
+  box-shadow: none;
+}
+
+@media (max-width: 700px) {
+  .template-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

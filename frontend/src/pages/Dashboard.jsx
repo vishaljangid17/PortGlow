@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import "./dashboard-header.css";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -6,19 +7,60 @@ function Dashboard() {
   const handleLogout = () => {
     localStorage.removeItem("portglowToken");
     localStorage.removeItem("portglowUser");
-    navigate("/login");
+    navigate("/", { replace: true });
   };
 
   return (
     <div className="dashboard-page">
       <header className="dashboard-header">
-        <div className="dashboard-logo">
-          <span className="logo-icon">✦</span>
-          <span>PortGlow</span>
+        {/* LEFT: logo + Home */}
+        <div className="dash-header-left">
+          <div className="dashboard-logo">
+            <span className="logo-icon">✦</span>
+            <span>PortGlow</span>
+          </div>
+
+          <button
+            type="button"
+            className="dash-btn dash-btn-home"
+            onClick={() => navigate("/")}
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M3 11.5 12 4l9 7.5" />
+              <path d="M5 10.5V20h5v-5h4v5h5v-9.5" />
+            </svg>
+            Home
+          </button>
         </div>
 
-        <button className="logout-button" onClick={handleLogout}>
+        {/* RIGHT: Logout */}
+        <button
+          type="button"
+          className="dash-btn dash-btn-logout"
+          onClick={handleLogout}
+        >
           Logout
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+            <path d="M16 17l5-5-5-5" />
+            <path d="M21 12H9" />
+          </svg>
         </button>
       </header>
 
