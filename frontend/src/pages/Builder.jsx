@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 import {
 
@@ -34,6 +35,7 @@ import {
   resolveTemplateId,
 } from "../templates/registry.js";
 import "../templates/template-picker.css";
+import "./builder-header.css";
 
 const STORAGE_KEY = "portglowPortfolioContext";
 
@@ -100,6 +102,8 @@ function getSavedPortfolio() {
 }
 
 function Builder() {
+  const navigate = useNavigate();
+
 
   const [activeSection, setActiveSection] = useState("profile");
 
@@ -165,6 +169,32 @@ function Builder() {
   const [template, setTemplate] = useState(() =>
     resolveTemplateId(getSavedPortfolio().template)
   );
+
+  // Burger menu (Save / Unpublish / Logout)
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef(null);
+
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setMenuOpen(false);
+      }
+    };
+
+    const handleEscape = (event) => {
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleOutsideClick);
+    document.addEventListener("keydown", handleEscape);
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, []);
 
   // =========================================
 
@@ -1428,6 +1458,12 @@ if (userId) {
 
   // =========================================
 
+  const handleLogout = () => {
+    localStorage.removeItem("portglowToken");
+    localStorage.removeItem("portglowUser");
+    navigate("/", { replace: true });
+  };
+
   const openPreview = () => {
 
     try {
@@ -1492,125 +1528,128 @@ if (userId) {
       {/* HEADER */}
 
       <header className="builder-header">
-
         <div className="builder-logo">
-
           <span className="logo-icon">✦</span>
-
           <span>PortGlow</span>
-
         </div>
 
-        <div className="builder-header-actions">
-
-          <button
-
-            type="button"
-
-            className="builder-save-button"
-
-            onClick={savePortfolio}
-
-            disabled={isSavingPortfolio || isLoadingPortfolio}
-
-          >
-
-            {isLoadingPortfolio
-
-              ? "Loading..."
-
-              : isSavingPortfolio
-
-                ? "Saving..."
-
-                : "Save"}
-
-          </button>
-
-          <button
-
-            type="button"
-
-            className="builder-preview-button"
-
-            onClick={openPreview}
-
-          >
-
-            Preview
-
-          </button>
-
-        <button
-
-          type="button"
-
-          className="builder-save-button"
-
-          onClick={handlePublish}
-
-          disabled={isPublishing || isSavingPortfolio || isLoadingPortfolio}
-
-        >
-
-          {isPublishing ? "Publishing..." : isPublished ? "Republish" : "Publish Portfolio"}
-
-        </button>
-
-        {isPublished && publicUrl && (
-
-          <>
-
+        <div className="pg-actions">
+          {/* LEFT: Home, View Live, Copy Link, Republish */}
+          <div className="pg-actions-left">
             <button
-
               type="button"
-
-              className="builder-save-button"
-
-              onClick={copyPublicLink}
-
+              className="pg-btn pg-btn-ghost"
+              onClick={() => navigate("/dashboard")}
             >
-
-              Copy Link
-
+              Home
             </button>
 
+            {isPublished && publicUrl && (
+              <>
+                <button
+                  type="button"
+                  className="pg-btn pg-btn-live"
+                  onClick={() =>
+                    window.open(publicUrl, "_blank", "noopener,noreferrer")
+                  }
+                >
+                  View Live
+                </button>
+
+                <button
+                  type="button"
+                  className="pg-btn pg-btn-soft"
+                  onClick={copyPublicLink}
+                >
+                  Copy Link & Share
+                </button>
+              </>
+            )}
+
             <button
-
               type="button"
-
-              className="builder-preview-button"
-
-              onClick={() => window.open(publicUrl, "_blank", "noopener,noreferrer")}
-
+              className="pg-btn pg-btn-glass"
+              onClick={handlePublish}
+              disabled={isPublishing || isSavingPortfolio || isLoadingPortfolio}
             >
+              {isPublishing
+                ? "Publishing..."
+                : isPublished
+                  ? "Republish"
+                  : "Publish Portfolio"}
+            </button>
+          </div>
 
-              View Live
-
+          {/* RIGHT: Preview + burger (Save, Unpublish, Logout) */}
+          <div className="pg-actions-right">
+            <button
+              type="button"
+              className="pg-btn pg-btn-primary"
+              onClick={openPreview}
+            >
+              Preview
             </button>
 
-            <button
+            <div className="pg-menu" ref={menuRef}>
+              <button
+                type="button"
+                className="pg-burger"
+                aria-label="More actions"
+                aria-haspopup="menu"
+                aria-expanded={menuOpen}
+                onClick={() => setMenuOpen((open) => !open)}
+              />
 
-              type="button"
+              {menuOpen && (
+                <div className="pg-dropdown" role="menu">
+                  <button
+                    type="button"
+                    role="menuitem"
+                    className="pg-menu-item"
+                    onClick={() => {
+                      setMenuOpen(false);
+                      savePortfolio();
+                    }}
+                    disabled={isSavingPortfolio || isLoadingPortfolio}
+                  >
+                    {isLoadingPortfolio
+                      ? "Loading..."
+                      : isSavingPortfolio
+                        ? "Saving..."
+                        : "Save"}
+                  </button>
 
-              className="builder-save-button"
+                  {isPublished && publicUrl && (
+                    <button
+                      type="button"
+                      role="menuitem"
+                      className="pg-menu-item pg-menu-item--danger"
+                      onClick={() => {
+                        setMenuOpen(false);
+                        handleUnpublish();
+                      }}
+                      disabled={isPublishing}
+                    >
+                      Unpublish
+                    </button>
+                  )}
 
-              onClick={handleUnpublish}
-
-              disabled={isPublishing}
-
-            >
-
-              Unpublish
-
-            </button>
-
-          </>
-
-        )}
-
+                  <button
+                    type="button"
+                    role="menuitem"
+                    className="pg-menu-item pg-menu-item--logout"
+                    onClick={() => {
+                      setMenuOpen(false);
+                      handleLogout();
+                    }}
+                  >
+                    Logout
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
-
       </header>
 
       <div className="builder-layout">
