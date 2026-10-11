@@ -992,15 +992,11 @@ function App() {
 
         />
 
-        {/\* Published portfolio — fetches data using its slug \*/}
-
-        <Route
-
-          path="/p/:slug"
-
-          element={<PublicPortfolio />}
-
-        />
+        {/* Published portfolio — fetches data using its slug */}
+<Route
+  path="/p/:slug"
+  element={<PublicPortfolio />}
+/>
 
       </Routes>
 
