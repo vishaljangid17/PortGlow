@@ -1462,7 +1462,7 @@ if (userId) {
 
     <div className="builder-page">
 
-      {/\* HEADER \*/}
+      {/* HEADER */}
 
       <header className="builder-header">
 
@@ -1588,7 +1588,7 @@ if (userId) {
 
       <div className="builder-layout">
 
-        {/\* SIDEBAR \*/}
+        {/* SIDEBAR */}
 
         <aside className="builder-sidebar">
 
@@ -1738,7 +1738,7 @@ if (userId) {
 
         </aside>
 
-        {/\* MAIN \*/}
+        {/* MAIN */}
 
         <main className="builder-main">
 
@@ -1780,7 +1780,7 @@ if (userId) {
 
           )}
 
-          {/\* PROFILE \*/}
+          {/* PROFILE */}
 
           {activeSection === "profile" && (
 
@@ -1918,7 +1918,7 @@ if (userId) {
 
                       name="github"
 
-                      placeholder="https\://github.com/username"
+                      placeholder="https://github.com/username"
 
                       value={profile.github}
 
@@ -1944,7 +1944,7 @@ if (userId) {
 
                       name="linkedin"
 
-                      placeholder="https\://linkedin.com/in/username"
+                      placeholder="https://linkedin.com/in/username"
 
                       value={profile.linkedin}
 
@@ -1999,7 +1999,7 @@ if (userId) {
 
           )}
 
-          {/\* ABOUT \*/}
+          {/* ABOUT */}
 
           {activeSection === "about" && (
 
@@ -2125,7 +2125,7 @@ if (userId) {
 
           )}
 
-          {/\* SKILLS \*/}
+          {/* SKILLS */}
 
           {activeSection === "skills" && (
 
@@ -2265,7 +2265,7 @@ if (userId) {
 
           )}
 
-          {/\* PROJECTS \*/}
+          {/* PROJECTS */}
 
           {activeSection === "projects" && (
 
@@ -2299,7 +2299,7 @@ if (userId) {
 
                   <label htmlFor="project-title">
 
-                    Project Name \*
+                    Project Name *
 
                   </label>
 
@@ -2395,7 +2395,7 @@ if (userId) {
 
                     name="github"
 
-                    placeholder="https\://github.com/username/project"
+                    placeholder="https://github.com/username/project"
 
                     value={projectForm.github}
 
@@ -2421,7 +2421,7 @@ if (userId) {
 
                     name="live"
 
-                    placeholder="https\://your-project.example.com"
+                    placeholder="https://your-project.example.com"
 
                     value={projectForm.live}
 
@@ -2677,7 +2677,7 @@ if (userId) {
 
           )}
 
-          {/\* LINKS \*/}
+          {/* LINKS */}
 
           {activeSection === "links" && (
 
@@ -2727,7 +2727,7 @@ if (userId) {
 
                     }
 
-                    placeholder="https\://github.com/username"
+                    placeholder="https://github.com/username"
 
                   />
 
@@ -2757,7 +2757,7 @@ if (userId) {
 
                     }
 
-                    placeholder="https\://linkedin.com/in/username"
+                    placeholder="https://linkedin.com/in/username"
 
                   />
 
