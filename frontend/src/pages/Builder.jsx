@@ -24,7 +24,16 @@ import {
 
   ExternalLink,
 
+  Palette,
+  Check,
+  Lock,
 } from "lucide-react";
+import {
+  TEMPLATES,
+  DEFAULT_TEMPLATE_ID,
+  resolveTemplateId,
+} from "../templates/registry.js";
+import "../templates/template-picker.css";
 
 const STORAGE_KEY = "portglowPortfolioContext";
 
@@ -152,6 +161,11 @@ function Builder() {
 
   const [publicUrl, setPublicUrl] = useState("");
 
+  // Selected portfolio template (see ../templates/registry.js)
+  const [template, setTemplate] = useState(() =>
+    resolveTemplateId(getSavedPortfolio().template)
+  );
+
   // =========================================
 
   // LOAD PORTFOLIO FROM MONGODB
@@ -220,6 +234,8 @@ if (!saved) {
 
   setProjects([]);
 
+  setTemplate(DEFAULT_TEMPLATE_ID);
+
   localStorage.setItem(
 
     STORAGE_KEY,
@@ -233,6 +249,7 @@ if (!saved) {
       skills: [],
 
       projects: [],
+      template: DEFAULT_TEMPLATE_ID,
 
     })
 
@@ -324,6 +341,12 @@ if (userId) {
 
           setProjects(loadedProjects);
 
+          const loadedTemplate = resolveTemplateId(
+            getSavedPortfolio().template || saved.template
+          );
+
+          setTemplate(loadedTemplate);
+
           localStorage.setItem(
 
             STORAGE_KEY,
@@ -337,6 +360,7 @@ if (userId) {
               skills: loadedSkills,
 
               projects: loadedProjects,
+              template: loadedTemplate,
 
             })
 
@@ -427,6 +451,7 @@ if (userId) {
           skills,
 
           projects,
+          template,
 
         })
 
@@ -444,7 +469,7 @@ if (userId) {
 
     }
 
-  }, [profile, about, skills, projects]);
+  }, [profile, about, skills, projects, template]);
 
   // =========================================
 
@@ -1123,6 +1148,7 @@ if (userId) {
       about,
 
       skills,
+      template,
 
       projects: projects.map((project) => ({
 
@@ -1415,6 +1441,7 @@ if (userId) {
         skills,
 
         projects,
+        template,
 
       };
 
@@ -1694,6 +1721,19 @@ if (userId) {
 
               Projects
 
+            </button>
+
+            <button
+              type="button"
+              className={`builder-menu-item ${
+                activeSection === "templates" ? "active" : ""
+              }`}
+              onClick={() => setActiveSection("templates")}
+            >
+              <span>
+                <Palette size={18} strokeWidth={1.8} />
+              </span>
+              Templates
             </button>
 
             <button
@@ -2665,16 +2705,134 @@ if (userId) {
 
                 className="builder-continue-button"
 
-                onClick={() => setActiveSection("links")}
+                onClick={() => setActiveSection("templates")}
 
               >
 
-                Continue to Links <span>→</span>
+                Continue to Templates <span>→</span>
 
               </button>
 
             </section>
 
+          )}
+
+          {/* TEMPLATES */}
+
+          {activeSection === "templates" && (
+            <section className="builder-card">
+              <div className="builder-card-header">
+                <div>
+                  <h2>Choose a template</h2>
+                  <p>
+                    Pick the look of your portfolio. You can switch anytime.
+                  </p>
+                </div>
+              </div>
+
+              <div className="builder-form">
+                <div className="template-grid">
+                  {TEMPLATES.map((item) => {
+                    const selected = template === item.id;
+
+                    return (
+                      <button
+                        type="button"
+                        key={item.id}
+                        className={`template-card ${
+                          selected ? "selected" : ""
+                        } ${item.premium ? "locked" : ""}`}
+                        aria-pressed={selected}
+                        onClick={() => {
+                          if (item.premium) {
+                            setSaveMessage(
+                              `${item.name} is a premium template. Coming soon!`
+                            );
+                            return;
+                          }
+
+                          setTemplate(item.id);
+                          setSaveMessage(`${item.name} template selected.`);
+                        }}
+                      >
+                        <div
+                          className="template-thumb"
+                          style={{
+                            background: item.swatch.thumbBg || item.swatch.bg,
+                          }}
+                        >
+                          <span
+                            className="tt-nav"
+                            style={{ background: item.swatch.ink }}
+                          />
+                          <span
+                            className="tt-title"
+                            style={{ background: item.swatch.ink }}
+                          />
+                          <span
+                            className="tt-title short"
+                            style={{ background: item.swatch.accent }}
+                          />
+                          <span
+                            className="tt-line"
+                            style={{ background: item.swatch.ink }}
+                          />
+                          <span
+                            className="tt-line s"
+                            style={{ background: item.swatch.ink }}
+                          />
+                          <span
+                            className="tt-btn"
+                            style={{ background: item.swatch.accent }}
+                          />
+                          <span
+                            className="tt-orb"
+                            style={{
+                              background: `linear-gradient(135deg, ${item.swatch.accent}, ${item.swatch.accent2})`,
+                            }}
+                          />
+                        </div>
+
+                        <div className="template-info">
+                          <h3>{item.name}</h3>
+                          <p>{item.tagline}</p>
+                        </div>
+
+                        {selected && (
+                          <span className="template-badge">
+                            <Check size={13} /> Selected
+                          </span>
+                        )}
+
+                        {item.premium && (
+                          <span className="template-badge premium">
+                            <Lock size={12} /> Premium
+                          </span>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                <div className="project-form-actions">
+                  <button
+                    type="button"
+                    className="builder-continue-button"
+                    onClick={openPreview}
+                  >
+                    Preview with this template <span>→</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    className="project-cancel-button"
+                    onClick={() => setActiveSection("links")}
+                  >
+                    Continue to Links
+                  </button>
+                </div>
+              </div>
+            </section>
           )}
 
           {/* LINKS */}
