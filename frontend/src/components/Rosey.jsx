@@ -1,7 +1,8 @@
-
 import { useState } from "react";
 import axios from "axios";
 import { X, Send, ExternalLink, Sparkles } from "lucide-react";
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 function Rosey() {
   const [isOpen, setIsOpen] = useState(false);
@@ -32,7 +33,7 @@ function Rosey() {
     },
   ]);
 
-  // Apply About content to Builder
+  // Apply generated About text in the Builder.
   const applyAboutToBuilder = (aboutText) => {
     if (typeof aboutText !== "string" || !aboutText.trim()) return;
 
@@ -43,7 +44,7 @@ function Rosey() {
     );
   };
 
-  // Apply Skills to Builder
+  // Apply generated skills in the Builder.
   const applySkillsToBuilder = (skills) => {
     if (!Array.isArray(skills) || skills.length === 0) return;
 
@@ -54,7 +55,7 @@ function Rosey() {
     );
   };
 
-  // Apply Project to Builder
+  // Apply generated project details in the Builder.
   const applyProjectToBuilder = (project) => {
     if (!project || !project.title) return;
 
@@ -65,7 +66,6 @@ function Rosey() {
     );
   };
 
-  // Send message to Rosey
   const sendMessage = async () => {
     const trimmedMessage = message.trim();
 
@@ -112,7 +112,7 @@ function Rosey() {
       }
 
       const response = await axios.post(
-        "http://localhost:5000/api/ai/chat",
+        `${API_URL}/api/ai/chat`,
         {
           message: trimmedMessage,
           portfolioContext,
@@ -166,7 +166,6 @@ function Rosey() {
 
   return (
     <>
-      {/* Floating Rosey Button */}
       <button
         className="rosey-floating-button"
         onClick={() => setIsOpen(true)}
@@ -176,10 +175,8 @@ function Rosey() {
         🌹
       </button>
 
-      {/* Rosey Chat Window */}
       {isOpen && (
         <div className="rosey-chat">
-          {/* Header */}
           <div className="rosey-chat-header">
             <div className="rosey-chat-title">
               <div className="rosey-chat-avatar">🌹</div>
@@ -200,7 +197,6 @@ function Rosey() {
             </button>
           </div>
 
-          {/* Chat Body */}
           <div className="rosey-chat-body">
             {messages.map((msg, index) => (
               <div
@@ -212,9 +208,7 @@ function Rosey() {
                 }
               >
                 {msg.sender === "rosey" && (
-                  <div className="rosey-message-avatar">
-                    🌹
-                  </div>
+                  <div className="rosey-message-avatar">🌹</div>
                 )}
 
                 <div
@@ -226,36 +220,29 @@ function Rosey() {
                 >
                   <p>{msg.text}</p>
 
-                  {/* Apply About */}
                   {msg.sender === "rosey" &&
                     msg.type === "apply_about" && (
                       <button
                         className="rosey-apply-button"
                         type="button"
-                        onClick={() =>
-                          applyAboutToBuilder(msg.text)
-                        }
+                        onClick={() => applyAboutToBuilder(msg.text)}
                       >
                         Apply to About ✨
                       </button>
                     )}
 
-                  {/* Apply Skills */}
                   {msg.sender === "rosey" &&
                     msg.type === "apply_skills" &&
                     msg.skills.length > 0 && (
                       <button
                         className="rosey-apply-button"
                         type="button"
-                        onClick={() =>
-                          applySkillsToBuilder(msg.skills)
-                        }
+                        onClick={() => applySkillsToBuilder(msg.skills)}
                       >
                         Apply to Skills ✨
                       </button>
                     )}
 
-                  {/* Project Draft Preview */}
                   {msg.sender === "rosey" &&
                     msg.type === "apply_project" &&
                     msg.project && (
@@ -314,12 +301,9 @@ function Rosey() {
               </div>
             ))}
 
-            {/* Loading Indicator */}
             {isLoading && (
               <div className="rosey-welcome-message">
-                <div className="rosey-message-avatar">
-                  🌹
-                </div>
+                <div className="rosey-message-avatar">🌹</div>
 
                 <div className="rosey-message rosey-loading-message">
                   <p>Rosey is thinking...</p>
@@ -328,7 +312,6 @@ function Rosey() {
             )}
           </div>
 
-          {/* Chat Input */}
           <form
             className="rosey-chat-input-area"
             onSubmit={(event) => {
@@ -341,9 +324,7 @@ function Rosey() {
               placeholder="Ask Rosey anything..."
               value={message}
               disabled={isLoading}
-              onChange={(event) =>
-                setMessage(event.target.value)
-              }
+              onChange={(event) => setMessage(event.target.value)}
               aria-label="Message Rosey"
             />
 

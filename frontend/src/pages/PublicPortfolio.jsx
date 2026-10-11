@@ -1,3 +1,4 @@
+jsx
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import PortfolioRenderer from "../templates/PortfolioRenderer.jsx";
@@ -5,7 +6,7 @@ import AuroraTemplate from "../templates/AuroraTemplate.jsx";
 import { resolveTemplateId } from "../templates/registry.js";
 import "../style.css";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+const API_URL = import.meta.env.VITE_API_URL || "https://portglow.onrender.com";
 
 export default function PublicPortfolio() {
   const { slug } = useParams();

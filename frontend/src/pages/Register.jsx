@@ -1,8 +1,9 @@
+jsx
 import { useCallback, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Toast from "../components/Toast.jsx";
-
+const API_URL = import.meta.env.VITE_API_URL;
 function Register() {
   const navigate = useNavigate();
 
@@ -65,7 +66,7 @@ function Register() {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/auth/register",
+        `${API_URL}/api/auth/register`,
         {
           name,
           email,
